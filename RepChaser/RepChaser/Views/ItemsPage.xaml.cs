@@ -1,15 +1,9 @@
-﻿using System;
+﻿using RepChaser.Models;
+using RepChaser.ViewModels;
+using System;
 using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using RepChaser.Models;
-using RepChaser.Views;
-using RepChaser.ViewModels;
 
 namespace RepChaser.Views
 {
@@ -18,28 +12,27 @@ namespace RepChaser.Views
     [DesignTimeVisible(false)]
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel viewModel;
+        private readonly ItemsViewModel _viewModel;
 
         public ItemsPage()
         {
             InitializeComponent();
-
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = new ItemsViewModel();
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as ExerciseSummaryItem;
-            if (item == null)
-                return;
-
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
-
-            // Manually deselect item.
-            ItemsListView.SelectedItem = null;
+            if (args.SelectedItem is ExerciseSummaryItem item)
+                await NavigateToItemAsync(item);
         }
 
-        async void AddItem_Clicked(object sender, EventArgs e)
+        private async Task NavigateToItemAsync(ExerciseSummaryItem item)
+        {
+            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            ItemsListView.SelectedItem = null; // Manually deselect item.
+        }
+
+        private async void AddItem_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
         }
@@ -47,9 +40,8 @@ namespace RepChaser.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            if (_viewModel.Items.Count == 0)
+                _viewModel.LoadItemsCommand.Execute(null);
         }
     }
 }

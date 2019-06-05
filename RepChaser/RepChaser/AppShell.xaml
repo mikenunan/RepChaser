@@ -44,7 +44,7 @@
 
     // This header appears at the top of the Flyout.
     <Shell.FlyoutHeaderTemplate>
-	<DataTemplate>
+    <DataTemplate>
             <Grid>ContentHere</Grid>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>

@@ -1,8 +1,5 @@
-﻿using System;
+﻿using RepChaser.Services;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using RepChaser.Services;
-using RepChaser.Views;
 
 namespace RepChaser
 {

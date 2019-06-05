@@ -60,7 +60,7 @@ namespace RepChaser.Services
 
         public async Task<bool> UpdateItemAsync(ExerciseSummaryItem item)
         {
-            var oldItem = _items.Where((ExerciseSummaryItem arg) => arg.Id == item.Id).FirstOrDefault();
+            var oldItem = _items.FirstOrDefault(arg => arg.Id == item.Id);
             _items.Remove(oldItem);
             _items.Add(item);
 
@@ -69,7 +69,7 @@ namespace RepChaser.Services
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var oldItem = _items.Where((ExerciseSummaryItem arg) => arg.Id == id).FirstOrDefault();
+            var oldItem = _items.FirstOrDefault(arg => arg.Id == id);
             _items.Remove(oldItem);
 
             return await Task.FromResult(true);

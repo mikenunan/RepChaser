@@ -1,12 +1,10 @@
-﻿using System;
+﻿using RepChaser.Models;
+using RepChaser.Views;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
-
-using RepChaser.Models;
-using RepChaser.Views;
 
 namespace RepChaser.ViewModels
 {
@@ -29,7 +27,7 @@ namespace RepChaser.ViewModels
             });
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async Task ExecuteLoadItemsCommand()
         {
             if (IsBusy)
                 return;
