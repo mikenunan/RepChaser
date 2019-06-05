@@ -1,10 +1,7 @@
-﻿using System;
+﻿using RepChaser.Models;
+using RepChaser.ViewModels;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using RepChaser.Models;
-using RepChaser.ViewModels;
 
 namespace RepChaser.Views
 {
@@ -26,10 +23,10 @@ namespace RepChaser.Views
         {
             InitializeComponent();
 
-            var item = new Item
+            var item = new ExerciseSummaryItem(GuidFactory.NewGuidString(), new ExerciseDayRecord[] { })
             {
-                Text = "Item 1",
-                Description = "This is an item description."
+                Exercise = "Item 1",
+                //Description = "This is an item description."
             };
 
             viewModel = new ItemDetailViewModel(item);

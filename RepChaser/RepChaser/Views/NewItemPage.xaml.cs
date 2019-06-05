@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RepChaser.Models;
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using RepChaser.Models;
 
 namespace RepChaser.Views
 {
@@ -13,16 +10,16 @@ namespace RepChaser.Views
     [DesignTimeVisible(false)]
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public ExerciseSummaryItem Item { get; set; }
 
         public NewItemPage()
         {
             InitializeComponent();
 
-            Item = new Item
+            Item = new ExerciseSummaryItem(GuidFactory.NewGuidString(), new ExerciseDayRecord[] { })
             {
-                Text = "Item name",
-                Description = "This is an item description."
+                Exercise = "Item name",
+                //Description = "This is an item description."
             };
 
             BindingContext = this;

@@ -1,66 +1,88 @@
-﻿using System;
+﻿using RepChaser.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RepChaser.Models;
 
 namespace RepChaser.Services
 {
-    public class MockDataStore : IDataStore<Item>
+    public class MockDataStore : IDataStore<ExerciseSummaryItem>
     {
-        List<Item> items;
+        private readonly List<ExerciseSummaryItem> _items = new List<ExerciseSummaryItem>();
 
         public MockDataStore()
         {
-            items = new List<Item>();
-            var mockItems = new List<Item>
+            var mockItems = new List<ExerciseSummaryItem>
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is an item description." }
+                CreateSummaryItem("Push up", 4, 5 * 6),
+                CreateSummaryItem("Dowel row", 6, 5 * 6),
+                CreateSummaryItem("KB press", 2, 5 * 6),
             };
 
             foreach (var item in mockItems)
             {
-                items.Add(item);
+                _items.Add(item);
             }
         }
 
-        public async Task<bool> AddItemAsync(Item item)
+        private static ExerciseSummaryItem CreateSummaryItem(string exercise, int repsPerSet, int setsTargetDaily)
         {
-            items.Add(item);
+            ExerciseDayRecord CreateDayRecord(int daysAgo)
+            {
+                return new ExerciseDayRecord
+                {
+                    Date = DateTime.Today.AddDays(-daysAgo),
+                    Exercise = exercise,
+                    Id = GuidFactory.NewGuidString(),
+                    RepsPerSet = repsPerSet,
+                    SetsTarget = setsTargetDaily,
+                    SetsCompleted = daysAgo
+                };
+            }
+
+            var dayRecords = (IEnumerable<ExerciseDayRecord>)new[]
+            {
+                CreateDayRecord(1),
+                CreateDayRecord(2),
+                CreateDayRecord(4),
+            };
+
+            return new ExerciseSummaryItem(GuidFactory.NewGuidString(), dayRecords)
+                { Exercise = exercise, RepsPerSet = repsPerSet, SetsTargetDaily = setsTargetDaily };
+        }
+
+        public async Task<bool> AddItemAsync(ExerciseSummaryItem item)
+        {
+            _items.Add(item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(Item item)
+        public async Task<bool> UpdateItemAsync(ExerciseSummaryItem item)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(item);
+            var oldItem = _items.Where((ExerciseSummaryItem arg) => arg.Id == item.Id).FirstOrDefault();
+            _items.Remove(oldItem);
+            _items.Add(item);
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
+            var oldItem = _items.Where((ExerciseSummaryItem arg) => arg.Id == id).FirstOrDefault();
+            _items.Remove(oldItem);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<Item> GetItemAsync(string id)
+        public async Task<ExerciseSummaryItem> GetItemAsync(string id)
         {
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+            return await Task.FromResult(_items.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<ExerciseSummaryItem>> GetItemsAsync(bool forceRefresh = false)
         {
-            return await Task.FromResult(items);
+            return await Task.FromResult(_items);
         }
     }
 }
