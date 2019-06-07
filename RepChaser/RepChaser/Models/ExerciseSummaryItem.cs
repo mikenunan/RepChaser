@@ -38,9 +38,9 @@ namespace RepChaser.Models
 
         public void DateRefresh()
         {
-            var daysSinceLastRecord = (DateTime.Today - DayRecords.Last().Date).Days;
+            var daysSinceLastRecord = DateTime.Today - (DayRecords.LastOrDefault()?.Date ?? DateTime.MinValue);
             var dayRecordsCount = DayRecords.Count;
-            var daysToRoll = Math.Max(MaxWindowLengthInDays, Math.Min(daysSinceLastRecord, dayRecordsCount));
+            var daysToRoll = Math.Max(MaxWindowLengthInDays, Math.Min(daysSinceLastRecord.Days, dayRecordsCount));
             for (var i = 0; i < daysToRoll; i++)
             {
                 var dayRecord = new ExerciseDayRecord(GuidFactory.NewGuidString(), DateTime.Today, new List<DateTime>())
