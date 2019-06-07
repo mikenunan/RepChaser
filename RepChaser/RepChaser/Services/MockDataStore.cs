@@ -29,14 +29,13 @@ namespace RepChaser.Services
         {
             ExerciseDayRecord CreateDayRecord(int daysAgo)
             {
-                return new ExerciseDayRecord
+                var setTimes = Enumerable.Range(0, daysAgo).Select(n => DateTime.Today.AddHours(n + 1));
+                return new ExerciseDayRecord(GuidFactory.NewGuidString(), DateTime.Today.AddDays(-daysAgo), setTimes)
                 {
-                    Date = DateTime.Today.AddDays(-daysAgo),
                     Exercise = exercise,
-                    Id = GuidFactory.NewGuidString(),
+                    Description = $"Description of {exercise}",
                     RepsPerSet = repsPerSet,
                     SetsTarget = setsTargetDaily,
-                    SetsCompleted = daysAgo
                 };
             }
 

@@ -18,8 +18,8 @@ namespace RepChaser.Views
 
             Item = new ExerciseSummaryItem(GuidFactory.NewGuidString(), new ExerciseDayRecord[] { })
             {
-                Exercise = "Item name",
-                //Description = "This is an item description."
+                Exercise = "Some other exercise",
+                Description = "Another exercise description."
             };
 
             BindingContext = this;

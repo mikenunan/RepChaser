@@ -12,6 +12,7 @@ namespace RepChaser.Models
         public readonly int MaxWindowLengthInDays;
 
         public string Exercise { get; set; }
+        public string Description { get; set; }
         public int RepsPerSet { get; set; }
         public int SetsTargetDaily { get; set; }
         public int WindowLengthInDays => DayRecords.Count;
@@ -32,7 +33,7 @@ namespace RepChaser.Models
         public void AddSet()
         {
             DateRefresh();
-            DayRecords[0].SetsCompleted++;
+            DayRecords[0].SetTimesAscending.Add(DateTime.Now);
         }
 
         public void DateRefresh()
@@ -42,10 +43,9 @@ namespace RepChaser.Models
             var daysToRoll = Math.Max(MaxWindowLengthInDays, Math.Min(daysSinceLastRecord, dayRecordsCount));
             for (var i = 0; i < daysToRoll; i++)
             {
-                var dayRecord = new ExerciseDayRecord
+                var dayRecord = new ExerciseDayRecord(GuidFactory.NewGuidString(), DateTime.Today, new List<DateTime>())
                 {
-                    Date = DateTime.Today, Exercise = Exercise, Id = GuidFactory.NewGuidString(),
-                    RepsPerSet = RepsTarget, SetsTarget = SetsTarget
+                    Exercise = Exercise, Description = Description, RepsPerSet = RepsTarget, SetsTarget = SetsTarget
                 };
                 DayRecords.Insert(0, dayRecord);
                 if (dayRecordsCount < MaxWindowLengthInDays)

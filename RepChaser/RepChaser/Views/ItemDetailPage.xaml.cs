@@ -15,7 +15,6 @@ namespace RepChaser.Views
         public ItemDetailPage(ItemDetailViewModel viewModel)
         {
             InitializeComponent();
-
             BindingContext = _viewModel = viewModel;
         }
 
@@ -25,8 +24,8 @@ namespace RepChaser.Views
 
             var item = new ExerciseSummaryItem(GuidFactory.NewGuidString(), new ExerciseDayRecord[] { })
             {
-                Exercise = "Item 1",
-                //Description = "This is an item description."
+                Exercise = "Some exercise",
+                Description = "Exercise description."
             };
 
             _viewModel = new ItemDetailViewModel(item);
