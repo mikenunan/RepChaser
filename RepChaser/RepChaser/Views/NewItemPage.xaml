@@ -6,21 +6,23 @@
              mc:Ignorable="d"
              x:Class="RepChaser.Views.NewItemPage"
              Title="New Item">
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
-            <Entry Text="{Binding Item.Exercise}" FontSize="Small" />
-            <Label Text="Reps per set" FontSize="Medium" />
-            <Stepper Value="{Binding Item.RepsPerSet}" />
-            <Label Text="Sets target daily" FontSize="Medium" />
-            <Stepper Value="{Binding Item.SetsTargetDaily}" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Spacing="20" Padding="15">
+                <Label Text="Exercise" FontSize="Medium" />
+                <Entry Text="{Binding Item.Exercise}" FontSize="Small" />
+                <Label Text="Reps per set" FontSize="Medium" />
+                <Stepper Value="{Binding Item.RepsPerSet}" />
+                <Label Text="Sets target daily" FontSize="Medium" />
+                <Stepper Value="{Binding Item.SetsTargetDaily}" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
-    
+
 </ContentPage>

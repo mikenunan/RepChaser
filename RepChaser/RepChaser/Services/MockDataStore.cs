@@ -16,7 +16,10 @@ namespace RepChaser.Services
             {
                 CreateSummaryItem("Push up", 4, 5 * 6),
                 CreateSummaryItem("Dowel row", 6, 5 * 6),
-                CreateSummaryItem("KB press", 2, 5 * 6),
+                CreateSummaryItem("KB press (L)", 2, 5 * 6),
+                CreateSummaryItem("KB press (R)", 2, 5 * 6),
+                CreateSummaryItem("Pistol (L)", 2, 5 * 6),
+                CreateSummaryItem("Pistol (R)", 2, 5 * 6),
             };
 
             foreach (var item in mockItems)
