@@ -31,7 +31,7 @@
                                     LineBreakMode="NoWrap" 
                                     Style="{DynamicResource ListItemTextStyle}" 
                                     FontSize="16" />
-                                <Label Text="{Binding PercentCompleted}" 
+                                <Label Text="{Binding FractionCompleted, StringFormat='{0:P0}'}" 
                                     LineBreakMode="NoWrap"
                                     Style="{DynamicResource ListItemDetailTextStyle}"
                                     FontSize="13" />

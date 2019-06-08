@@ -17,7 +17,7 @@ namespace RepChaser.Models
         public int SetsCompleted => SetTimesAscending.Count;
         public int RepsTarget => SetsTarget * RepsPerSet;
         public int RepsCompleted => SetsCompleted * RepsPerSet;
-        public int PercentCompleted => SetsCompleted * 100 / SetsTarget;
+        public decimal FractionCompleted => (decimal)SetsCompleted / SetsTarget;
 
         public ExerciseDayRecord(string id, DateTime date, IEnumerable<DateTime> setTimes)
         {

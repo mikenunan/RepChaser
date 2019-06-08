@@ -20,7 +20,7 @@ namespace RepChaser.Models
         public int SetsCompleted => DayRecords.Aggregate(0, (acc, day) => acc + day.SetsCompleted);
         public int RepsTarget => DayRecords.Aggregate(0, (acc, day) => acc + day.RepsTarget);
         public int RepsCompleted => DayRecords.Aggregate(0, (acc, day) => acc + day.RepsCompleted);
-        public int PercentCompleted => RepsCompleted * 100 / RepsTarget;
+        public decimal FractionCompleted => (decimal)RepsCompleted / RepsTarget;
 
         public ExerciseSummaryItem(string id, IEnumerable<ExerciseDayRecord> dayRecordsOrderedByDateAndContiguous, int maxWindowLengthInDays = 10)
         {
