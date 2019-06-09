@@ -38,7 +38,7 @@ namespace RepChaser.Services
                     Exercise = exercise,
                     Description = $"Description of {exercise}",
                     RepsPerSet = repsPerSet,
-                    SetsTarget = setsTargetDaily,
+                    SetsDailyTarget = setsTargetDaily,
                 };
             }
 
@@ -50,7 +50,7 @@ namespace RepChaser.Services
             };
 
             return new ExerciseSummaryItem(GuidFactory.NewGuidString(), dayRecords)
-                { Exercise = exercise, RepsPerSet = repsPerSet, SetsTargetDaily = setsTargetDaily };
+                { Exercise = exercise, RepsPerSet = repsPerSet, SetsDailyTarget = setsTargetDaily };
         }
 
         public async Task<bool> AddItemAsync(ExerciseSummaryItem item)

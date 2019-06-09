@@ -6,18 +6,19 @@ namespace RepChaser.Models
 {
     public class ExerciseDayRecord
     {
-        public string Id { get; private set; }
-        public DateTime Date { get; private set; }
+        public readonly string Id;
+        public readonly DateTime Date;
         public readonly List<DateTime> SetTimesAscending;
+
         public string Exercise { get; set; }
         public string Description{ get; set; }
-        public int LoadGrammes { get; set; }
+        public decimal LoadKg { get; set; }
+        public int SetsDailyTarget { get; set; }
         public int RepsPerSet { get; set; }
-        public int SetsTarget { get; set; }
         public int SetsCompleted => SetTimesAscending.Count;
-        public int RepsTarget => SetsTarget * RepsPerSet;
+        public int TargetRepsDaily => SetsDailyTarget * RepsPerSet;
         public int RepsCompleted => SetsCompleted * RepsPerSet;
-        public decimal FractionCompleted => (decimal)SetsCompleted / SetsTarget;
+        public decimal FractionCompleted => (decimal)SetsCompleted / SetsDailyTarget;
 
         public ExerciseDayRecord(string id, DateTime date, IEnumerable<DateTime> setTimes)
         {

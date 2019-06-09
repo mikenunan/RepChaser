@@ -13,12 +13,10 @@ namespace RepChaser.Models
 
         public string Exercise { get; set; }
         public string Description { get; set; }
+        public decimal LoadKg { get; set; }
+        public int SetsDailyTarget { get; set; }
         public int RepsPerSet { get; set; }
-        public int SetsTargetDaily { get; set; }
-        public int WindowLengthInDays => DayRecords.Count;
-        public int SetsTarget => DayRecords.Aggregate(0, (acc, day) => acc + day.SetsTarget);
-        public int SetsCompleted => DayRecords.Aggregate(0, (acc, day) => acc + day.SetsCompleted);
-        public int RepsTarget => DayRecords.Aggregate(0, (acc, day) => acc + day.RepsTarget);
+        public int RepsTarget => DayRecords.Aggregate(0, (acc, day) => acc + day.TargetRepsDaily);
         public int RepsCompleted => DayRecords.Aggregate(0, (acc, day) => acc + day.RepsCompleted);
         public decimal FractionCompleted => (decimal)RepsCompleted / RepsTarget;
 
@@ -45,7 +43,7 @@ namespace RepChaser.Models
             {
                 var dayRecord = new ExerciseDayRecord(GuidFactory.NewGuidString(), DateTime.Today, new List<DateTime>())
                 {
-                    Exercise = Exercise, Description = Description, RepsPerSet = RepsTarget, SetsTarget = SetsTarget
+                    Exercise = Exercise, Description = Description, RepsPerSet = RepsTarget, SetsDailyTarget = SetsDailyTarget
                 };
                 DayRecords.Insert(0, dayRecord);
                 if (dayRecordsCount < MaxWindowLengthInDays)
