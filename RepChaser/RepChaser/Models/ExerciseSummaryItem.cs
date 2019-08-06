@@ -9,7 +9,6 @@ namespace RepChaser.Models
     {
         public readonly string Id;
         public readonly ObservableCollection<ExerciseDayRecord> DayRecords;
-        public readonly int MaxWindowLengthInDays;
 
         public string Exercise { get; set; }
         public string Description { get; set; }
@@ -24,7 +23,6 @@ namespace RepChaser.Models
         {
             Id = id;
             DayRecords = new ObservableCollection<ExerciseDayRecord>(dayRecordsOrderedByDateAndContiguous);
-            MaxWindowLengthInDays = maxWindowLengthInDays;
             DateRefresh();
         }
 
@@ -38,7 +36,7 @@ namespace RepChaser.Models
         {
             var daysSinceLastRecord = DateTime.Today - (DayRecords.LastOrDefault()?.Date ?? DateTime.MinValue);
             var dayRecordsCount = DayRecords.Count;
-            var daysToRoll = Math.Max(MaxWindowLengthInDays, Math.Min(daysSinceLastRecord.Days, dayRecordsCount));
+            var daysToRoll = Math.Min(daysSinceLastRecord.Days, dayRecordsCount);
             for (var i = 0; i < daysToRoll; i++)
             {
                 var dayRecord = new ExerciseDayRecord(GuidFactory.NewGuidString(), DateTime.Today, new List<DateTime>())

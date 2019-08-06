@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             xmlns:userControls="clr-namespace:RepChaser.UserControls;assembly=RepChaser"
              mc:Ignorable="d"
              x:Class="RepChaser.Views.ItemsPage"
              Title="{Binding Title}"
@@ -14,6 +16,9 @@
 
     <ScrollView>
         <StackLayout>
+            <microcharts:ChartView>
+
+            </microcharts:ChartView>
             <ListView x:Name="ItemsListView"
                     ItemsSource="{Binding Items}"
                     VerticalOptions="FillAndExpand"
@@ -35,6 +40,7 @@
                                     LineBreakMode="NoWrap"
                                     Style="{DynamicResource ListItemDetailTextStyle}"
                                     FontSize="13" />
+                                <userControls:TimeframeSummaryBar />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
